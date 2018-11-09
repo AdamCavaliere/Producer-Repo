@@ -38,28 +38,28 @@ resource "tfe_workspace" "prod" {
 
 resource "tfe_variable" "research_aws_access_key" {
   key          = "AWS_ACCESS_KEY_ID"
-  value        = "asdfkjewaqoru"
+  value        = "${var.sub_account_aws_access_key}"
   category     = "env"
   workspace_id = "${tfe_workspace.research.id}"
 }
 
 resource "tfe_variable" "test_aws_access_key" {
   key          = "AWS_ACCESS_KEY_ID"
-  value        = "asdfkjewaqoru"
+  value        = "${var.sub_account_aws_access_key}"
   category     = "env"
   workspace_id = "${tfe_workspace.test.id}"
 }
 
 resource "tfe_variable" "prod_aws_access_key" {
   key          = "AWS_ACCESS_KEY_ID"
-  value        = "asdfkjewaqoru"
+  value        = "${var.sub_account_aws_access_key}"
   category     = "env"
   workspace_id = "${tfe_workspace.prod.id}"
 }
 
 resource "tfe_variable" "research_aws_secret_key" {
   key          = "AWS_SECRET_ACCESS_KEY"
-  value        = "asdfkjewaqoru"
+  value        = "${var.sub_account_aws_secret_key}"
   category     = "env"
   sensitive    = "true"
   workspace_id = "${tfe_workspace.research.id}"
@@ -67,7 +67,7 @@ resource "tfe_variable" "research_aws_secret_key" {
 
 resource "tfe_variable" "test_aws_secret_key" {
   key          = "AWS_SECRET_ACCESS_KEY"
-  value        = "asdfkjewaqoru"
+  value        = "${var.sub_account_aws_secret_key}"
   category     = "env"
   sensitive    = "true"
   workspace_id = "${tfe_workspace.test.id}"
@@ -75,7 +75,7 @@ resource "tfe_variable" "test_aws_secret_key" {
 
 resource "tfe_variable" "prod_aws_secret_key" {
   key          = "AWS_SECRET_ACCESS_KEY"
-  value        = "asdfkjewaqoru"
+  value        = "${var.sub_account_aws_secret_key}"
   category     = "env"
   sensitive    = "true"
   workspace_id = "${tfe_workspace.prod.id}"
