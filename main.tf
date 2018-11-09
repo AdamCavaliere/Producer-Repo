@@ -80,3 +80,49 @@ resource "tfe_variable" "prod_aws_secret_key" {
   sensitive    = "true"
   workspace_id = "${tfe_workspace.prod.id}"
 }
+
+resource "tfe_variable" "workspace_var_research" {
+  key      = "workspace_name"
+  value    = "${var.use_case_name}-research"
+  category = "terraform"
+
+  workspace_id = "${tfe_workspace.research.id}"
+}
+
+resource "tfe_variable" "workspace_var_test" {
+  key      = "workspace_name"
+  value    = "${var.use_case_name}-test"
+  category = "terraform"
+
+  workspace_id = "${tfe_workspace.test.id}"
+}
+
+resource "tfe_variable" "workspace_var_prod" {
+  key      = "workspace_name"
+  value    = "${var.use_case_name}-prod"
+  category = "terraform"
+
+  workspace_id = "${tfe_workspace.prod.id}"
+}
+
+resource "tfe_variable" "org_var_prod" {
+  key          = "org"
+  value        = "${var.org}"
+  category     = "terraform"
+  workspace_id = "${tfe_workspace.prod.id}"
+}
+
+resource "tfe_variable" "org_var_test" {
+  key          = "org"
+  value        = "${var.org}"
+  category     = "terraform"
+  workspace_id = "${tfe_workspace.test.id}"
+}
+
+resource "tfe_variable" "org_var_research" {
+  key      = "org"
+  value    = "${var.org}"
+  category = "terraform"
+
+  workspace_id = "${tfe_workspace.research.id}"
+}
