@@ -4,6 +4,7 @@ variable "token" {
 
 variable "aws_region" {
   description = "region to deploy resources in"
+  default     = "us-east-2"
 }
 
 variable "use_case_name" {}
