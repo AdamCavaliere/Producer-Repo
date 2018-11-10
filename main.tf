@@ -126,3 +126,11 @@ resource "tfe_variable" "org_var_research" {
 
   workspace_id = "${tfe_workspace.research.id}"
 }
+
+resource "tfe_variable" "org_var_research" {
+  key      = "org2"
+  value    = "${var.org}"
+  category = "terraform"
+
+  workspace_id = "${tfe_workspace.research.id}"
+}
