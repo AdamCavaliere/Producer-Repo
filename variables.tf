@@ -2,6 +2,10 @@ variable "token" {
   description = "TFE Org Token"
 }
 
+variable "aws_region" {
+  description = "region to deploy resources in"
+}
+
 variable "use_case_name" {}
 
 variable "org" {}

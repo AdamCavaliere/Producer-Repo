@@ -13,3 +13,7 @@ output "test_subnet_id" {
 output "prod_subnet_id" {
   value = "${aws_subnet.prod.id}"
 }
+
+output "region" {
+  value = "${var.aws_region}"
+}

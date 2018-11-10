@@ -1,7 +1,7 @@
 provider "aws" {
   access_key = "${var.master_aws_access_key}"
   secret_key = "${var.master_aws_secret_key}"
-  region     = "us-east-2"
+  region     = "${var.aws_region}"
 }
 
 resource "aws_vpc" "main" {
