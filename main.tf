@@ -83,7 +83,7 @@ resource "tfe_variable" "prod_aws_secret_key" {
 
 resource "tfe_variable" "workspace_var_research" {
   key      = "workspace_name"
-  value    = "Creator-Example1"
+  value    = "Creator_Example1"
   category = "terraform"
 
   workspace_id = "${tfe_workspace.research.id}"
@@ -91,7 +91,7 @@ resource "tfe_variable" "workspace_var_research" {
 
 resource "tfe_variable" "workspace_var_test" {
   key      = "workspace_name"
-  value    = "Creator-Example1"
+  value    = "Creator_Example1"
   category = "terraform"
 
   workspace_id = "${tfe_workspace.test.id}"
@@ -99,7 +99,7 @@ resource "tfe_variable" "workspace_var_test" {
 
 resource "tfe_variable" "workspace_var_prod" {
   key      = "workspace_name"
-  value    = "Creator-Example1"
+  value    = "Creator_Example1"
   category = "terraform"
 
   workspace_id = "${tfe_workspace.prod.id}"
