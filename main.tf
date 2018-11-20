@@ -99,7 +99,7 @@ resource "tfe_variable" "workspace_var_test" {
 
 resource "tfe_variable" "workspace_var_prod" {
   key      = "workspace_name"
-  value    = "Creator_Example1"
+  value    = "Accenture_VAR"
   category = "terraform"
 
   workspace_id = "${tfe_workspace.prod.id}"
