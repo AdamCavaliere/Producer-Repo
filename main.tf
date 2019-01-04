@@ -8,11 +8,20 @@ resource "tfe_team" "developers" {
   organization = "${var.org}"
   }
 
-resource "tfe_team" "production" {
+resource "tfe_team" "ops" {
   name = "${var.use_case_name}-production"
   organization = "${var.org}"
   }
 
+resource "tfe_team_member" "azc-dev" {
+  team_id = "${tfe_team.developers.id}"
+  username = "azc-dev"
+}
+
+resource "tfe_team_member" "azc-ops" {
+  team_id = "${tfe_team.ops.id}"
+  username = "azc-ops"
+}
 
 resource "tfe_team_access" "development" {
   access = "admin"
