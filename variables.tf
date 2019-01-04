@@ -20,3 +20,5 @@ variable "oauth_token" {}
 variable "aws_access_key" {}
 
 variable "aws_secret_key" {}
+
+variable "creator_workspace" {}
