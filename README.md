@@ -10,7 +10,7 @@ Link this repo to a workspaced in TFE, configure variables, perform a plan/apply
 
 A HashiCorp TFE account, AWS access/secret keys, basic knowledge of TFE and AWS ...
 
-### Insatlling 
+### Installing 
 
 Step by step series of examples 
 
