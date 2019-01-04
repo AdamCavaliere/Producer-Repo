@@ -1,4 +1,4 @@
-# TheCreator Workspace
+# Producer Workspace
 
 This repo provides configs to TFE used to create multiple workspaces in TFE as well as a VPC with subnets to be consumed by the workspaces.  
 
