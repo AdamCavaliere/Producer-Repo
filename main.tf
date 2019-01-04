@@ -42,7 +42,7 @@ resource "tfe_team_access" "production" {
 }
 
 resource "tfe_team_access" "production-ops" {
-  access = "read"
+  access = "admin"
   team_id = "${tfe_team.ops.id}"
   workspace_id = "${tfe_workspace.production.id}"
 }
