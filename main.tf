@@ -6,6 +6,7 @@ provider "tfe" {
 resource "tfe_workspace" "development" {
   name         = "${var.use_case_name}-development"
   organization = "${var.org}"
+  auto_apply   = true
 
   vcs_repo = {
     branch         = "development"
@@ -17,6 +18,7 @@ resource "tfe_workspace" "development" {
 resource "tfe_workspace" "staging" {
   name         = "${var.use_case_name}-staging"
   organization = "${var.org}"
+  auto_apply   = true
 
   vcs_repo = {
     branch         = "staging"
