@@ -3,6 +3,41 @@ provider "tfe" {
   token    = "${var.token}"
 }
 
+resource "tfe_team" "developers" {
+  name = "${var.use_case_name}-developers"
+  organization = "${var.org}"
+  }
+
+resource "tfe_team" "production" {
+  name = "${var.use_case_name}-production"
+  organization = "${var.org}"
+  }
+
+
+resource "tfe_team_access" "development" {
+  access = "admin"
+  team_id = "${tfe_team.developers.id}"
+  workspace_id = "${tfe_workspace.development.id}"
+}
+
+resource "tfe_team_access" "staging" {
+  access = "write"
+  team_id = "${tfe_team.developers.id}"
+  workspace_id = "${tfe_workspace.staging.id}"
+}
+
+resource "tfe_team_access" "production" {
+  access = "read"
+  team_id = "${tfe_team.developers.id}"
+  workspace_id = "${tfe_workspace.production.id}"
+}
+
+resource "tfe_team_access" "production-ops" {
+  access = "read"
+  team_id = "${tfe_team.production.id}"
+  workspace_id = "${tfe_workspace.production.id}"
+}
+
 resource "tfe_workspace" "development" {
   name         = "${var.use_case_name}-development"
   organization = "${var.org}"
