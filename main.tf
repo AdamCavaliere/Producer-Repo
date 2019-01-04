@@ -3,32 +3,31 @@ provider "tfe" {
   token    = "${var.token}"
 }
 
-resource "tfe_workspace" "research" {
-  name              = "${var.use_case_name}-research"
+resource "tfe_workspace" "development" {
+  name              = "${var.use_case_name}-development"
   organization      = "${var.org}"
-  working_directory = "research"
 
   vcs_repo = {
+    branch         = "development"
     identifier     = "${var.vcs_identifier}"
     oauth_token_id = "${var.oauth_token}"
   }
 }
 
-resource "tfe_workspace" "test" {
-  name              = "${var.use_case_name}-test"
+resource "tfe_workspace" "staging" {
+  name              = "${var.use_case_name}-staging"
   organization      = "${var.org}"
-  working_directory = "test"
 
   vcs_repo = {
+    branch         = "staging"
     identifier     = "${var.vcs_identifier}"
     oauth_token_id = "${var.oauth_token}"
   }
 }
 
-resource "tfe_workspace" "prod" {
-  name              = "${var.use_case_name}-prod"
+resource "tfe_workspace" "production" {
+  name              = "${var.use_case_name}-production"
   organization      = "${var.org}"
-  working_directory = "prod"
 
   vcs_repo = {
     identifier     = "${var.vcs_identifier}"
