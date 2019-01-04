@@ -4,8 +4,8 @@ provider "tfe" {
 }
 
 resource "tfe_workspace" "development" {
-  name              = "${var.use_case_name}-development"
-  organization      = "${var.org}"
+  name         = "${var.use_case_name}-development"
+  organization = "${var.org}"
 
   vcs_repo = {
     branch         = "development"
@@ -15,8 +15,8 @@ resource "tfe_workspace" "development" {
 }
 
 resource "tfe_workspace" "staging" {
-  name              = "${var.use_case_name}-staging"
-  organization      = "${var.org}"
+  name         = "${var.use_case_name}-staging"
+  organization = "${var.org}"
 
   vcs_repo = {
     branch         = "staging"
@@ -26,8 +26,8 @@ resource "tfe_workspace" "staging" {
 }
 
 resource "tfe_workspace" "production" {
-  name              = "${var.use_case_name}-production"
-  organization      = "${var.org}"
+  name         = "${var.use_case_name}-production"
+  organization = "${var.org}"
 
   vcs_repo = {
     identifier     = "${var.vcs_identifier}"
@@ -35,93 +35,93 @@ resource "tfe_workspace" "production" {
   }
 }
 
-resource "tfe_variable" "research_aws_access_key" {
+resource "tfe_variable" "staging_aws_access_key" {
   key          = "AWS_ACCESS_KEY_ID"
-  value        = "${var.sub_account_aws_access_key}"
+  value        = "${var.aws_access_key}"
   category     = "env"
-  workspace_id = "${tfe_workspace.research.id}"
+  workspace_id = "${tfe_workspace.staging.id}"
 }
 
-resource "tfe_variable" "test_aws_access_key" {
+resource "tfe_variable" "development_aws_access_key" {
   key          = "AWS_ACCESS_KEY_ID"
-  value        = "${var.sub_account_aws_access_key}"
+  value        = "${var.aws_access_key}"
   category     = "env"
-  workspace_id = "${tfe_workspace.test.id}"
+  workspace_id = "${tfe_workspace.development.id}"
 }
 
-resource "tfe_variable" "prod_aws_access_key" {
+resource "tfe_variable" "production_aws_access_key" {
   key          = "AWS_ACCESS_KEY_ID"
-  value        = "${var.sub_account_aws_access_key}"
+  value        = "${var.aws_access_key}"
   category     = "env"
-  workspace_id = "${tfe_workspace.prod.id}"
+  workspace_id = "${tfe_workspace.production.id}"
 }
 
-resource "tfe_variable" "research_aws_secret_key" {
+resource "tfe_variable" "staging_aws_secret_key" {
   key          = "AWS_SECRET_ACCESS_KEY"
-  value        = "${var.sub_account_aws_secret_key}"
+  value        = "${var.aws_secret_key}"
   category     = "env"
   sensitive    = "true"
-  workspace_id = "${tfe_workspace.research.id}"
+  workspace_id = "${tfe_workspace.staging.id}"
 }
 
-resource "tfe_variable" "test_aws_secret_key" {
+resource "tfe_variable" "development_aws_secret_key" {
   key          = "AWS_SECRET_ACCESS_KEY"
-  value        = "${var.sub_account_aws_secret_key}"
+  value        = "${var.aws_secret_key}"
   category     = "env"
   sensitive    = "true"
-  workspace_id = "${tfe_workspace.test.id}"
+  workspace_id = "${tfe_workspace.development.id}"
 }
 
-resource "tfe_variable" "prod_aws_secret_key" {
+resource "tfe_variable" "production_aws_secret_key" {
   key          = "AWS_SECRET_ACCESS_KEY"
-  value        = "${var.sub_account_aws_secret_key}"
+  value        = "${var.aws_secret_key}"
   category     = "env"
   sensitive    = "true"
-  workspace_id = "${tfe_workspace.prod.id}"
+  workspace_id = "${tfe_workspace.production.id}"
 }
 
-resource "tfe_variable" "workspace_var_research" {
+resource "tfe_variable" "workspace_var_staging" {
   key      = "workspace_name"
-  value    = "Creator_Example1"
+  value    = "${var.creator_workspace}"
   category = "terraform"
 
-  workspace_id = "${tfe_workspace.research.id}"
+  workspace_id = "${tfe_workspace.staging.id}"
 }
 
-resource "tfe_variable" "workspace_var_test" {
+resource "tfe_variable" "workspace_var_development" {
   key      = "workspace_name"
-  value    = "Creator_Example1"
+  value    = "${var.creator_workspace}"
   category = "terraform"
 
-  workspace_id = "${tfe_workspace.test.id}"
+  workspace_id = "${tfe_workspace.development.id}"
 }
 
-resource "tfe_variable" "workspace_var_prod" {
+resource "tfe_variable" "workspace_var_production" {
   key      = "workspace_name"
-  value    = "Accenture_VAR"
+  value    = "${var.creator_workspace}"
   category = "terraform"
 
-  workspace_id = "${tfe_workspace.prod.id}"
+  workspace_id = "${tfe_workspace.production.id}"
 }
 
-resource "tfe_variable" "org_var_prod" {
+resource "tfe_variable" "org_var_production" {
   key          = "org"
   value        = "${var.org}"
   category     = "terraform"
-  workspace_id = "${tfe_workspace.prod.id}"
+  workspace_id = "${tfe_workspace.production.id}"
 }
 
-resource "tfe_variable" "org_var_test" {
+resource "tfe_variable" "org_var_development" {
   key          = "org"
   value        = "${var.org}"
   category     = "terraform"
-  workspace_id = "${tfe_workspace.test.id}"
+  workspace_id = "${tfe_workspace.development.id}"
 }
 
-resource "tfe_variable" "org_var_research" {
+resource "tfe_variable" "org_var_staging" {
   key      = "org"
   value    = "${var.org}"
   category = "terraform"
 
-  workspace_id = "${tfe_workspace.research.id}"
+  workspace_id = "${tfe_workspace.staging.id}"
 }

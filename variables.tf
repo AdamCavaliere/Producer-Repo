@@ -17,10 +17,6 @@ variable "vcs_identifier" {}
 
 variable "oauth_token" {}
 
-variable "sub_account_aws_access_key" {}
+variable "aws_access_key" {}
 
-variable "sub_account_aws_secret_key" {}
-
-variable "master_aws_access_key" {}
-
-variable "master_aws_secret_key" {}
+variable "aws_secret_key" {}
