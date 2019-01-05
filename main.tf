@@ -4,46 +4,46 @@ provider "tfe" {
 }
 
 resource "tfe_team" "developers" {
-  name = "${var.use_case_name}-developers"
+  name         = "${var.use_case_name}-developers"
   organization = "${var.org}"
-  }
+}
 
 resource "tfe_team" "ops" {
-  name = "${var.use_case_name}-production"
+  name         = "${var.use_case_name}-production"
   organization = "${var.org}"
-  }
+}
 
 resource "tfe_team_member" "azc-dev" {
-  team_id = "${tfe_team.developers.id}"
+  team_id  = "${tfe_team.developers.id}"
   username = "azc-dev"
 }
 
 resource "tfe_team_member" "azc-ops" {
-  team_id = "${tfe_team.ops.id}"
+  team_id  = "${tfe_team.ops.id}"
   username = "azc-ops"
 }
 
 resource "tfe_team_access" "development" {
-  access = "admin"
-  team_id = "${tfe_team.developers.id}"
+  access       = "admin"
+  team_id      = "${tfe_team.developers.id}"
   workspace_id = "${tfe_workspace.development.id}"
 }
 
 resource "tfe_team_access" "staging" {
-  access = "write"
-  team_id = "${tfe_team.developers.id}"
+  access       = "write"
+  team_id      = "${tfe_team.developers.id}"
   workspace_id = "${tfe_workspace.staging.id}"
 }
 
 resource "tfe_team_access" "production" {
-  access = "read"
-  team_id = "${tfe_team.developers.id}"
+  access       = "read"
+  team_id      = "${tfe_team.developers.id}"
   workspace_id = "${tfe_workspace.production.id}"
 }
 
 resource "tfe_team_access" "production-ops" {
-  access = "admin"
-  team_id = "${tfe_team.ops.id}"
+  access       = "admin"
+  team_id      = "${tfe_team.ops.id}"
   workspace_id = "${tfe_workspace.production.id}"
 }
 
@@ -155,6 +155,14 @@ resource "tfe_variable" "org_var_production" {
   value        = "${var.org}"
   category     = "terraform"
   workspace_id = "${tfe_workspace.production.id}"
+}
+
+resource "tfe_variable" "confirm_destroy" {
+  count        = "${length(child_workspaces)}"
+  key          = "CONFIRM_DESTROY"
+  value        = "1"
+  category     = "env"
+  workspace_id = "${element(concat(tfe_workspace.*.id, var.child_workspaces),count.index)}"
 }
 
 resource "tfe_variable" "org_var_development" {
