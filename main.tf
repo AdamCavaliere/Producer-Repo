@@ -162,7 +162,7 @@ resource "tfe_variable" "confirm_destroy" {
   key          = "CONFIRM_DESTROY"
   value        = "1"
   category     = "env"
-  workspace_id = "${concat(tfe_workspace.*.id, element(var.child_workspaces,count.index))}"
+  workspace_id = "${concat(tfe_workspace.*.id, element(var.child_workspaces,count.index)) }"
 }
 
 resource "tfe_variable" "org_var_development" {
