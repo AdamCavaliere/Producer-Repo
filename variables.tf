@@ -23,4 +23,6 @@ variable "aws_secret_key" {}
 
 variable "creator_workspace" {}
 
-variable "child_workspaces" {}
+variable "child_workspaces" {
+  type = "list"
+}

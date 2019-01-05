@@ -158,7 +158,7 @@ resource "tfe_variable" "org_var_production" {
 }
 
 resource "tfe_variable" "confirm_destroy" {
-  count        = "${length(child_workspaces)}"
+  count        = "${length(var.child_workspaces)}"
   key          = "CONFIRM_DESTROY"
   value        = "1"
   category     = "env"
