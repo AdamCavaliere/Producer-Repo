@@ -157,12 +157,46 @@ resource "tfe_variable" "org_var_production" {
   workspace_id = "${tfe_workspace.production.id}"
 }
 
-resource "tfe_variable" "confirm_destroy" {
-  count        = "${length(var.child_workspaces)}"
+resource "tfe_variable" "confirm_destroy1" {
   key          = "CONFIRM_DESTROY"
   value        = "1"
   category     = "env"
-  workspace_id = "${concat(tfe_workspace.*.id, element(var.child_workspaces,count.index)) }"
+  workspace_id = "${tfe_workspace.development.id}"
+}
+
+resource "tfe_variable" "confirm_destroy2" {
+  key          = "CONFIRM_DESTROY"
+  value        = "1"
+  category     = "env"
+  workspace_id = "${tfe_workspace.staging.id}"
+}
+
+resource "tfe_variable" "confirm_destroy3" {
+  key          = "CONFIRM_DESTROY"
+  value        = "1"
+  category     = "env"
+  workspace_id = "${tfe_workspace.production.id}"
+}
+
+resource "tfe_variable" "set_ttl1" {
+  key          = "WORKSPACE_TTL"
+  value        = "30"
+  category     = "env"
+  workspace_id = "${tfe_workspace.development.id}"
+}
+
+resource "tfe_variable" "set_ttl2" {
+  key          = "WORKSPACE_TTL"
+  value        = "30"
+  category     = "env"
+  workspace_id = "${tfe_workspace.staging.id}"
+}
+
+resource "tfe_variable" "set_ttl3" {
+  key          = "WORKSPACE_TTL"
+  value        = "30"
+  category     = "env"
+  workspace_id = "${tfe_workspace.production.id}"
 }
 
 resource "tfe_variable" "org_var_development" {

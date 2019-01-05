@@ -21,8 +21,10 @@ variable "aws_access_key" {}
 
 variable "aws_secret_key" {}
 
-variable "creator_workspace" {}
+variable "destroy_vars" {
+  type = "list"
+}
 
-variable "child_workspaces" {
+variable "destroy_keys" {
   type = "list"
 }
