@@ -23,6 +23,4 @@ variable "aws_secret_key" {}
 
 variable "creator_workspace" {}
 
-variable "child_workspaces" {
-  default = "${list("development","staging","production")}"
-}
+variable "child_workspaces" {}
