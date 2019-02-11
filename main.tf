@@ -213,3 +213,27 @@ resource "tfe_variable" "org_var_staging" {
 
   workspace_id = "${tfe_workspace.staging.id}"
 }
+
+resource "tfe_variable" "environment_name_dev" {
+  key      = "environment"
+  value    = "development"
+  category = "terraform"
+
+  workspace_id = "${tfe_workspace.development.id}"
+}
+
+resource "tfe_variable" "environment_name_stage" {
+  key      = "environment"
+  value    = "staging"
+  category = "terraform"
+
+  workspace_id = "${tfe_workspace.staging.id}"
+}
+
+resource "tfe_variable" "environment_name_prod" {
+  key      = "environment"
+  value    = "production"
+  category = "terraform"
+
+  workspace_id = "${tfe_workspace.production.id}"
+}
