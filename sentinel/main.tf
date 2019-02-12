@@ -4,7 +4,7 @@ terraform {
     organization = "hashicorp-v2"
 
     workspaces {
-      name = "sentinel"
+      name = "sentinel_policies"
     }
   }
 }
@@ -63,7 +63,7 @@ resource "tfe_policy_set" "production" {
   ]
 
   workspace_external_ids = [
-    "${local.workspaces["app-prod"]}",
+    "${local.workspaces["ExampleTeam-production"]}",
   ]
 }
 
@@ -77,8 +77,21 @@ resource "tfe_policy_set" "development" {
   ]
 
   workspace_external_ids = [
-    "${local.workspaces["app-dev"]}",
-    "${local.workspaces["app-dev-sandbox-bennett"]}",
+    "${local.workspaces["ExampleTeam-development"]}",
+  ]
+}
+
+resource "tfe_policy_set" "staging" {
+  name         = "development"
+  description  = "Policies that should be enforced on development or scratch infrastructure."
+  organization = "${var.tfe_organization}"
+
+  policy_ids = [
+    "${tfe_sentinel_policy.aws-restrict-instance-type-stage.id}",
+  ]
+
+  workspace_external_ids = [
+    "${local.workspaces["ExampleTeam-staging"]}",
   ]
 }
 
@@ -92,7 +105,7 @@ resource "tfe_policy_set" "sentinel" {
   ]
 
   workspace_external_ids = [
-    "${local.workspaces["tfe-policies"]}",
+    "${local.workspaces["sentinel_policies"]}",
   ]
 }
 
