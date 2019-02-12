@@ -12,12 +12,13 @@ Consumer
 https://github.com/AdamCavaliere/Consumer-Repo
 
 # Setup 
-
 ### Log into TFE
 * Log into your TFE or pTFE environment and choose the organization you are working in
 ### Create a workspace
 * Create a workspace called "sentinel_policies"
-* Configure VCS to point to your forked copy of the tfe-policies-example repo, (default branch)
+* Configure VCS to point to your forked copy of the Producer-Repo, (default branch)
+* For the sentinel_policies workspace click on Settings > General > 
+  - TERRAFORM WORKING DIRECTORY set it to `sentinel` this will link to the sentinel sub directory in the parent repo
 * Configure the following Terraform variables for the workspace:
   - tfe_token <your tfe user token>
   - tfe_organization <your tfe org>
@@ -25,10 +26,10 @@ https://github.com/AdamCavaliere/Consumer-Repo
   
 * Configure the following Environment variables for the workspace:
   - CONFIRM_DESTROY < 1 >
-### Modify some code
-* In the root of the forked tfe-policies-example repo find the main.tf file
+
+### IF YOU ARE A pTFE user PERFORM THIS STEP
+* In the root of the sentinel directory find the `main.tf` file
 * Modify main.tf
-### IF YOU ARE A TFE SaaS user SKIP THIS STEP
 * If you are using pTFE modify this stanza to include your hostname and organization 
 ```
 terraform {
@@ -42,8 +43,8 @@ terraform {
   }
 } 
 ```
-### This demo is going to hardcode some values pre-created via the Producer Consumer demo creation 
-* Find this resource stanza:
+### This demo is has some hardcoded values to reference workspaces pre-created via the Producer Consumer demo creation 
+* While still in the `main.tf` Verify that you are using the workspace names the Producer demo repo set, find these sections to update with your workspace names
 ```
 resource "tfe_policy_set" "production" {
   name         = "production"
@@ -55,11 +56,11 @@ resource "tfe_policy_set" "production" {
   ]
 
   workspace_external_ids = [
-    "${local.workspaces["app-prod"]}",
+    "${local.workspaces["ExampleTeam-production"]}", 
   ]
 }
 ```
-* This is used by the TFE provider to create a Sentinel policy set, in this case called "production"
+* The above stanza is used by the TFE provider to create a Sentinel policy set, in this case called "production"
 * The section `workspace_external_ids =` is used to add workspaces to the policy set that will be governed by the policies
 * Now we want to hardcode the name of the production workspace you created in the Producer Consumer demo build out
 ```
@@ -73,18 +74,26 @@ workspace_external_ids = [
     "${local.workspaces["ExampleTeam-development"]}",
   ]
 ```
+* Repeat this hardcode step for the `resource "tfe_policy_set" "development"` 
+```
+workspace_external_ids = [
+    "${local.workspaces["ExampleTeam-staging"]}",
+  ]
+```
 * Repeat this hardcode step for the `resource "tfe_policy_set" "sentinel"` 
 ```
 workspace_external_ids = [
     "${local.workspaces["sentinel_policies"]}",
   ]
 ```
-* Commit the changes to the main.tf in your forked repo
+* Commit the changes to the main.tf 
 ## Test the deployment of sentinel policies
-* When you committed the changes to the main.tf in the previous steps that would have kicked off a plan in your sentinel_policies workspace or your workspace my still be sitting at the initial setup screen for the workspace
+* When you committed the changes to the main.tf in the previous steps that would have kicked off a plan in your sentinel_policies workspace, or your workspace my still be sitting at the initial setup screen for the workspace
+* Note that commiting changes to the sentinel directory will also trigger plans on the Producer workspace but should not detect any infrastructure changes.  
 * Queue a manual run of the sentinel_policies workspace 
 * If you get a successful plan you are in good shape, now apply the run
 * Go to the Org Settings for TFE, click on Policies and Policy Sets links to review the sentinel policies created and the policiy sets
+* If you didn't get a successful apply verify the hardcoded values in the `sentinel/main.tf` file.
 
 ## Create a new Sentinel policy via the TFE GUI
 * Log into the TFE GUI, switch to your Org, then click on upper nav bar > Settings > Policies > Create a new policy
@@ -107,4 +116,35 @@ main = rule {
 * Click Create Policy
 
 ## Create a Policy Set
-* 
+* Click Policy Sets > Create a new policy set 
+  - NAME `test-policy-set`
+  - DESCRIPTION `test bed for sentinel policies`
+  - SCOPE OF POLICIES radio button `Policies enforced on selected workspaces`
+  - Policies > select from the dropdown `aws_enforce_tags` and click Add Policy 
+  - Workspaces > select from the dropdown `ExampleTeam-development` and click Add Workspace
+  - Click Update Policy set button
+## Modify a consumer environment 
+* Go to the Consumer-Repo that you cloned during the Producer Consumer demo setup
+* Switch to the development branch 
+* Go into the research directory
+  - `main.tf` 
+  - find the `resource "aws_instance" "web" ` stanza
+  - Comment out the tags
+```
+/* tags {
+    Name = "Research Instance"
+  } */
+```
+* Commit the change 
+## Verify the run on a workspace
+* Go to the `ExampleTeam-development` workspace
+* The previous commit should have triggered a run
+* We should see the plan succeed 
+* Sentinel check should fail due to the lack of a tag with `Name`  
+* If this doesn't work check the previous steps 
+* After a successful plan and check failure, delete this manually created sentinel policy and policy set
+
+## Use a workspace to apply and manage Sentinel policies via VCS
+
+
+  
