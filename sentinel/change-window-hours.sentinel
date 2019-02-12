@@ -4,7 +4,7 @@ import "time"
 # Time rule info
 # We expect requests to only happen during work days (0 for Sunday, 6 for Saturday)
 workdays = rule {
-    time.now.weekday = 0 
+    time.now.weekday == 0 
 }
 
 # We expect requests to only happen during work hours
