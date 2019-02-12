@@ -162,6 +162,14 @@ resource "tfe_sentinel_policy" "aws-restrict-instance-type-dev" {
   description  = "Limit AWS instances to approved list (for dev infrastructure)"
   organization = "${var.tfe_organization}"
   policy       = "${file("./aws-restrict-instance-type-dev.sentinel")}"
+  enforce_mode = "hard-mandatory"
+}
+
+resource "tfe_sentinel_policy" "aws-restrict-instance-type-stage" {
+  name         = "aws-restrict-instance-type-stage"
+  description  = "Limit AWS instances to approved list (for dev infrastructure)"
+  organization = "${var.tfe_organization}"
+  policy       = "${file("./aws-restrict-instance-type-stage.sentinel")}"
   enforce_mode = "soft-mandatory"
 }
 
