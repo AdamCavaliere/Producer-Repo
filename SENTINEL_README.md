@@ -1,9 +1,9 @@
 # Overview
-Follow this README to setup a workspace used to demonstrate Sentinel policies being managed via VCS
-Based on this article on the Terraform.io docs: https://www.terraform.io/docs/enterprise/sentinel/integrate-vcs.html
+Follow this README to setup a workspace used to demonstrate Sentinel policies being managed via VCS.
+Example is based on this article on the Terraform.io docs: https://www.terraform.io/docs/enterprise/sentinel/integrate-vcs.html
 
 ## Assumptions 
-You have already followed the steps to configure the Producer Consumer demo environments in your TFE SaaS or pTFE instance
+You have already followed the steps to configure the Producer Consumer demo environments in your TFE SaaS or pTFE instance.
 This guides assumes Github is being used for a VCS and that it has already been configured in your TFE org
 
 Producer
@@ -62,7 +62,7 @@ resource "tfe_policy_set" "production" {
 }
 ```
 * This is used by the TFE provider to create a Sentinel policy set, in this case called "production"
-* The section `workspace_external_ids =` is used to add workspaced to the policy set that will be governed by the policies
+* The section `workspace_external_ids =` is used to add workspaces to the policy set that will be governed by the policies
 * Now we want to hardcode the name of the production workspace you created in the Producer Consumer demo build out
 ```
 workspace_external_ids = [
@@ -88,5 +88,26 @@ workspace_external_ids = [
 * If you get a successful plan you are in good shape, now apply the run
 * Go to the Org Settings for TFE, click on Policies and Policy Sets links to review the sentinel policies created and the policiy sets
 
+## Create a new Sentinel policy via the TFE GUI
+* Log into the TFE GUI, switch to your Org, then click on upper nav bar > Settings > Policies > Create a new policy
+  - Policy name: aws-enforce-tags
+  - Description: A sentinel policy that enforces a certain tag on AWS instances
+  - Enforcement mode: Hard-mandatory 
+  - Policy Code:
+```
+import "tfplan"
 
+main = rule {
+  all tfplan.resources.aws_instance as _, instances {
+    all instances as _, r {
+      r.applied contains "tags" and
+      r.applied.tags contains "Name"
+    }
+  }
+}
+```
+* Click Create Policy
+
+## Create a Policy Set
+*
 
