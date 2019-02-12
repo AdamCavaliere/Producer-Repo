@@ -84,8 +84,8 @@ resource "tfe_policy_set" "development" {
 }
 
 resource "tfe_policy_set" "staging" {
-  name         = "development"
-  description  = "Policies that should be enforced on development or scratch infrastructure."
+  name         = "staging"
+  description  = "Policies that should be enforced on staging environments."
   organization = "${var.tfe_organization}"
 
   policy_ids = [
