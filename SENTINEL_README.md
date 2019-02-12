@@ -13,9 +13,9 @@ https://github.com/AdamCavaliere/Consumer-Repo
 
 # Setup 
 
-##Fork me
+## Fork me
 * Fork this repo: https://github.com/hashicorp/tfe-policies-example/
-##Log into TFE
+## Log into TFE
 * Log into your TFE or pTFE environment and choose the organization you are working in
 * Create a workspace called "sentinel_policies"
 * Configure VCS to point to your forked copy of the tfe-policies-example repo, (default branch)
