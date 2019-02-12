@@ -90,11 +90,13 @@ workspace_external_ids = [
 ## Test the deployment of sentinel policies
 * When you committed the changes to the main.tf in the previous steps that would have kicked off a plan in your sentinel_policies workspace, or your workspace my still be sitting at the initial setup screen for the workspace
 * Note that commiting changes to the sentinel directory will also trigger plans on the Producer workspace but should not detect any infrastructure changes.  
-* Queue a manual run of the sentinel_policies workspace 
+* Queue a manual run of the `sentinel_policies` workspace 
 * If you get a successful plan you are in good shape, now apply the run
 * Go to the Org Settings for TFE, click on Policies and Policy Sets links to review the sentinel policies created and the policiy sets
 * If you didn't get a successful apply verify the hardcoded values in the `sentinel/main.tf` file.
-
+* Now that you know the `sentinel_policies` workspace is functional clean up by running a destroy
+* In the `sentinel_policies` workspace click on Settings > Destruction and Deletion > Queue destroy Plan
+* You will demo the workspace VCS run later in your demo
 ## Create a new Sentinel policy via the TFE GUI
 * Log into the TFE GUI, switch to your Org, then click on upper nav bar > Settings > Policies > Create a new policy
   - Policy name: aws-enforce-tags
@@ -145,6 +147,13 @@ main = rule {
 * After a successful plan and check failure, delete this manually created sentinel policy and policy set
 
 ## Use a workspace to apply and manage Sentinel policies via VCS
+* Go to the `sentinel_policies` workspace
+* Trigger a manual run via Queue Plan
+* You now have some additional policies to demonstrate 
 
-
+## Production Change Window use case
+To help drive home the whole story of Sentinel, VCS, and overall governance use these demo steps
+* Go to the `ExampleTeam-production` workspace
+* Trigger a run either via a VCS change to the `main.tf` file or via the Queue Plan 
+* This should pass plan.
   
