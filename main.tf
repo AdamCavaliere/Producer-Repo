@@ -238,7 +238,7 @@ resource "tfe_variable" "environment_name_prod" {
   workspace_id = "${tfe_workspace.production.id}"
 }
 
-module "vpc" "producer"{
+module "vpc" {
   source  = "app.terraform.io/aharness-org/vpc/aws"
   version = "0.9.1"
 
