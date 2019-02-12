@@ -81,3 +81,12 @@ workspace_external_ids = [
     "${local.workspaces["sentinel_policies"]}",
   ]
 ```
+* Commit the changes to the main.tf in your forked repo
+## Test the deployment of sentinel policies
+* When you committed the changes to the main.tf in the previous steps that would have kicked off a plan in your sentinel_policies workspace or your workspace my still be sitting at the initial setup screen for the workspace
+* Queue a manual run of the sentinel_policies workspace 
+* If you get a successful plan you are in good shape, now apply the run
+* Go to the Org Settings for TFE, click on Policies and Policy Sets links to review the sentinel policies created and the policiy sets
+
+
+
