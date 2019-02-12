@@ -204,3 +204,12 @@ resource "tfe_sentinel_policy" "gcp-restrict-machine-type" {
   policy       = "${file("./gcp-restrict-machine-type.sentinel")}"
   enforce_mode = "soft-mandatory"
 }
+
+# General management policies
+resource "tfe_sentinel_policy" "allowed-working-hours" {
+  name         = "allowed-working-hours"
+  description  = "Only allow TF applies during specific working hours"
+  organization = "${var.tfe_organization}"
+  policy       = "${file("./working-hours.sentinel")}"
+  enforce_mode = "hard-mandatory"
+}
