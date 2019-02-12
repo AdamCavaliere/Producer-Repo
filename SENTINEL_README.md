@@ -32,6 +32,7 @@ https://github.com/AdamCavaliere/Consumer-Repo
 * Modify main.tf
 ### IF YOU ARE A TFE SaaS user SKIP THIS STEP
 * If you are using pTFE modify this stanza to include your hostname and organization 
+
 ```terraform {
   backend "remote" {
     hostname     = "<your_pTFE_hostname>"
@@ -42,8 +43,6 @@ https://github.com/AdamCavaliere/Consumer-Repo
     }
   }
 } ```
-
-### This demo is going to hard code some values pre-created via the Producer Consumer demo creation
 
   
 
