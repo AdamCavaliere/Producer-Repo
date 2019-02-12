@@ -75,3 +75,9 @@ workspace_external_ids = [
     "${local.workspaces["ExampleTeam-development"]}",
   ]
 ```
+* Repeat this hardcode step for the `resource "tfe_policy_set" "sentinel"` 
+```
+workspace_external_ids = [
+    "${local.workspaces["sentinel_policies"]}",
+  ]
+```
