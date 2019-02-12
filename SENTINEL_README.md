@@ -17,6 +17,7 @@ https://github.com/AdamCavaliere/Consumer-Repo
 * Fork this repo: https://github.com/hashicorp/tfe-policies-example/
 ### Log into TFE
 * Log into your TFE or pTFE environment and choose the organization you are working in
+### Create a workspace
 * Create a workspace called "sentinel_policies"
 * Configure VCS to point to your forked copy of the tfe-policies-example repo, (default branch)
 * Configure the following Terraform variables for the workspace:
@@ -26,7 +27,21 @@ https://github.com/AdamCavaliere/Consumer-Repo
   
 * Configure the following Environment variables for the workspace:
   - CONFIRM_DESTROY < 1 >
+### Modify some code
+* In the root of the forked tfe-policies-example repo find the main.tf file
+* Modify main.tf
+### IF YOU ARE A TFE SaaS user SKIP THIS STEP
+* If you are using pTFE modify this stanza to include your hostname and organization 
+```terraform {
+  backend "remote" {
+    hostname     = "<your_pTFE_hostname>"
+    organization = "<your_org_name>"
 
+    workspaces {
+      name = "tfe-policies-example"
+    }
+  }
+}```
 
   
 
