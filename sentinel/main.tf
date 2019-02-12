@@ -59,7 +59,7 @@ resource "tfe_policy_set" "production" {
   organization = "${var.tfe_organization}"
 
   policy_ids = [
-    "${tfe_sentinel_policy.aws-restrict-instance-type-prod.id}",
+    #"${tfe_sentinel_policy.aws-restrict-instance-type-prod.id}",
     "${tfe_sentinel_policy.prod-change-window-hours.id}",
   ]
 
