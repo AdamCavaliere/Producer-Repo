@@ -75,7 +75,7 @@ resource "tfe_policy_set" "development" {
 
   policy_ids = [
     "${tfe_sentinel_policy.aws-restrict-instance-type-dev.id}",
-    #"${tfe_sentinel_policy.allowed-working-hours.id}",
+    "${tfe_sentinel_policy.allowed-working-hours.id}",
   ]
 
   workspace_external_ids = [
