@@ -4,7 +4,7 @@ terraform {
     organization = "hashicorp-v2"
 
     workspaces {
-      name = "tfe-policies-example"
+      name = "sentinel"
     }
   }
 }
