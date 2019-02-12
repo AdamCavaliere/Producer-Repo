@@ -43,5 +43,7 @@ https://github.com/AdamCavaliere/Consumer-Repo
   }
 }```
 
+### This demo is going to hard code some values pre-created via the Producer Consumer demo creation
+
   
 
