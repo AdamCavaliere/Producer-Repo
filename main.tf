@@ -237,3 +237,24 @@ resource "tfe_variable" "environment_name_prod" {
 
   workspace_id = "${tfe_workspace.production.id}"
 }
+
+module "vpc" "producer"{
+  source  = "app.terraform.io/aharness-org/vpc/aws"
+  version = "0.9.1"
+
+  name = "my-producer-vpc"
+  cidr = "10.1.0.0/16"
+
+  azs             = ["us-east-1f"]
+  private_subnets = ["10.1.1.0/24"]
+  public_subnets  = ["10.1.101.0/24"]
+
+  enable_nat_gateway = true
+  enable_vpn_gateway = true
+
+  tags = {
+    Terraform = "true"
+    Environment = "dev"
+  }
+
+}
