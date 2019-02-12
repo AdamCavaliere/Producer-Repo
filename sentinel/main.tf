@@ -213,3 +213,11 @@ resource "tfe_sentinel_policy" "allowed-working-hours" {
   policy       = "${file("./working-hours.sentinel")}"
   enforce_mode = "hard-mandatory"
 }
+
+resource "tfe_sentinel_policy" "prod-change-window-hours" {
+  name         = "prod-change-window-hours"
+  description  = "Only allow TF applies to prod environments during change window hours"
+  organization = "${var.tfe_organization}"
+  policy       = "${file("./change-window-hours.sentinel")}"
+  enforce_mode = "hard-mandatory"
+}
