@@ -1,6 +1,6 @@
 # Overview
 Follow this README to setup a workspace used to demonstrate Sentinel policies being managed via VCS.
-Example is based on this article on the Terraform.io docs: https://www.terraform.io/docs/enterprise/sentinel/integrate-vcs.html
+This example is based on this article on the Terraform.io docs: https://www.terraform.io/docs/enterprise/sentinel/integrate-vcs.html
 
 ## Assumptions 
 You have already followed the steps to configure the Producer Consumer demo environments in your TFE SaaS or pTFE instance.
