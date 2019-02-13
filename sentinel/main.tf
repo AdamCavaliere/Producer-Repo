@@ -3,9 +3,9 @@ terraform {
     hostname     = "app.terraform.io"
     organization = "hashicorp-v2"
 
-    workspaces {
+  /*  workspaces {
       name = "sentinel_policies"
-    }
+    } */
   }
 }
 
