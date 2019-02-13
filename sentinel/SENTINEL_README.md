@@ -97,6 +97,8 @@ workspace_external_ids = [
 * Now that you know the `sentinel_policies` workspace is functional clean up by running a destroy
 * In the `sentinel_policies` workspace click on Settings > Destruction and Deletion > Queue destroy Plan
 * You will demo the workspace VCS run later in your demo
+
+# Post Setup demo info
 ## Create a new Sentinel policy via the TFE GUI
 * Log into the TFE GUI, switch to your Org, then click on upper nav bar > Settings > Policies > Create a new policy
   - Policy name: aws-enforce-tags
@@ -155,5 +157,6 @@ main = rule {
 To help drive home the whole story of Sentinel, VCS, and overall governance use these demo steps
 * Go to the `ExampleTeam-production` workspace
 * Trigger a run either via a VCS change to the `main.tf` file or via the Queue Plan 
-* This should pass plan.
+* This should pass a plan and policy check
+* 
   
