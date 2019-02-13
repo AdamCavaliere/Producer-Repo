@@ -130,10 +130,9 @@ main = rule {
 ## Modify a consumer environment 
 * Go to the Consumer-Repo that you cloned during the Producer Consumer demo setup
 * Switch to the development branch 
-* Go into the research directory
-  - `main.tf` 
+* Edit the `main.tf` 
   - find the `resource "aws_instance" "web" ` stanza
-  - Comment out the tags
+  - Comment out the tags section
 ```
 /* tags {
     Name = "Research Instance"
@@ -147,6 +146,7 @@ main = rule {
 * Sentinel check should fail due to the lack of a tag with `Name`  
 * If this doesn't work check the previous steps 
 * After a successful plan and check failure, delete this manually created sentinel policy and policy set
+* You will now shift into the VCS management of Sentinel policies in tfe
 
 ## Use a workspace to apply and manage Sentinel policies via VCS
 * Go to the `sentinel_policies` workspace
@@ -157,5 +157,21 @@ main = rule {
 To help drive home the whole story of Sentinel, VCS, and overall governance use these demo steps
 * Go to the `ExampleTeam-production` workspace
 * Trigger a run either via a VCS change to the `main.tf` file or via the Queue Plan 
-* This should pass a plan and policy check
-* 
+* This should pass a plan and policy check, you can discard the apply if there are changes to make to the infrastructure
+* Now go to the Producer Repo > Sentinel directory
+* Edit the `main.tf`
+  - Find the `resource "tfe_policy_set" "production"` stanza
+* There is a policy that is commented out
+```
+policy_ids = [
+    "${tfe_sentinel_policy.aws-restrict-instance-type-prod.id}",
+ -> #"${tfe_sentinel_policy.prod-change-window-hours.id}", 
+  ]
+```
+* Un-comment this line to include the `prod-change-windows-hours` sentinel policy
+* Commit the changest to `main.tf`
+* This will trigger a plan in the `sentinel_policies` workspace 
+* Accept the apply on this change 
+* Go back to the `ExampleTeam-production` workspace and trigger a run 
+* This time the policy check will fail to indicate that you are attempting to make a change to production outside of the approved change window
+* You have now demonstrated Sentinel policy creation via the GUI, and via a VCS workflow
