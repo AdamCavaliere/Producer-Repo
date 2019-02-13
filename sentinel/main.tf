@@ -2,10 +2,6 @@ terraform {
   backend "remote" {
     hostname     = "app.terraform.io"
     organization = "hashicorp-v2"
-
-  /*  workspaces {
-      name = "sentinel_policies"
-    } */
   }
 }
 
