@@ -4,7 +4,7 @@ Example is based on this article on the Terraform.io docs: https://www.terraform
 
 ## Assumptions 
 You have already followed the steps to configure the Producer Consumer demo environments in your TFE SaaS or pTFE instance.
-This guides assumes Github is being used for a VCS and that it has already been configured in your TFE org
+This guide assumes Github is being used for a VCS and that it has already been configured in your TFE org
 
 Producer
 https://github.com/AdamCavaliere/Producer-Repo
