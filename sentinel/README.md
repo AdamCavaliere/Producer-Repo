@@ -35,11 +35,7 @@ https://github.com/AdamCavaliere/Consumer-Repo
 terraform {
   backend "remote" {
     hostname     = "<your_pTFE_hostname>"
-    organization = "<your_org_name>"
-
-    workspaces {
-      name = "tfe-policies-example"
-    }
+    organization = "<your_org_name>"    
   }
 } 
 ```
