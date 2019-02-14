@@ -2,16 +2,16 @@ output "main_vpc" {
   value = "${aws_vpc.main.id}"
 }
 
-output "research_subnet_id" {
-  value = "${aws_subnet.research.id}"
+output "development_subnet_id" {
+  value = "${aws_subnet.development.id}"
 }
 
-output "test_subnet_id" {
-  value = "${aws_subnet.test.id}"
+output "staging_subnet_id" {
+  value = "${aws_subnet.staging.id}"
 }
 
-output "prod_subnet_id" {
-  value = "${aws_subnet.prod.id}"
+output "production_subnet_id" {
+  value = "${aws_subnet.production.id}"
 }
 
 output "region" {

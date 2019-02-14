@@ -180,21 +180,21 @@ resource "tfe_variable" "confirm_destroy3" {
 
 resource "tfe_variable" "set_ttl1" {
   key          = "WORKSPACE_TTL"
-  value        = "30"
+  value        = "120"
   category     = "env"
   workspace_id = "${tfe_workspace.development.id}"
 }
 
 resource "tfe_variable" "set_ttl2" {
   key          = "WORKSPACE_TTL"
-  value        = "30"
+  value        = "120"
   category     = "env"
   workspace_id = "${tfe_workspace.staging.id}"
 }
 
 resource "tfe_variable" "set_ttl3" {
   key          = "WORKSPACE_TTL"
-  value        = "30"
+  value        = "120"
   category     = "env"
   workspace_id = "${tfe_workspace.production.id}"
 }
