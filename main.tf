@@ -55,7 +55,7 @@ resource "tfe_workspace" "development" {
 
   vcs_repo = {
     branch         = "development"
-    identifier     = "${var.org}/${var.git_repo}"
+    identifier     = "${var.git_user}/${var.git_repo}"
     oauth_token_id = "${var.oauth_token}"
   }
 }
@@ -68,7 +68,7 @@ resource "tfe_workspace" "staging" {
 
   vcs_repo = {
     branch         = "staging"
-    identifier     = "${var.org}/${var.git_repo}"
+    identifier     = "${var.git_user}/${var.git_repo}"
     oauth_token_id = "${var.oauth_token}"
   }
 }
@@ -79,7 +79,7 @@ resource "tfe_workspace" "production" {
   depends_on   = ["null_resource.github_mgmt"]
 
   vcs_repo = {
-    identifier     = "${var.org}/${var.git_repo}"
+    identifier     = "${var.git_user}/${var.git_repo}"
     oauth_token_id = "${var.oauth_token}"
   }
 }
