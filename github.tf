@@ -6,6 +6,7 @@ data "template_file" "init" {
   vars = {
     git_token = "${var.git_token}"
     git_repo = "${var.git_repo}"
+    git_user = "${var.git_user}"
   }
 }
 
