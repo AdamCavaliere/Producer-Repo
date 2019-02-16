@@ -51,10 +51,11 @@ resource "tfe_workspace" "development" {
   name         = "${var.use_case_name}-development"
   organization = "${var.org}"
   auto_apply   = true
+  depends_on   = ["null_resource.github_mgmt"]
 
   vcs_repo = {
     branch         = "development"
-    identifier     = "${var.vcs_identifier}"
+    identifier     = "${var.org}/${var.git_repo}"
     oauth_token_id = "${var.oauth_token}"
   }
 }
@@ -63,10 +64,11 @@ resource "tfe_workspace" "staging" {
   name         = "${var.use_case_name}-staging"
   organization = "${var.org}"
   auto_apply   = true
+  depends_on   = ["null_resource.github_mgmt"]
 
   vcs_repo = {
     branch         = "staging"
-    identifier     = "${var.vcs_identifier}"
+    identifier     = "${var.org}/${var.git_repo}"
     oauth_token_id = "${var.oauth_token}"
   }
 }
@@ -74,9 +76,10 @@ resource "tfe_workspace" "staging" {
 resource "tfe_workspace" "production" {
   name         = "${var.use_case_name}-production"
   organization = "${var.org}"
+  depends_on   = ["null_resource.github_mgmt"]
 
   vcs_repo = {
-    identifier     = "${var.vcs_identifier}"
+    identifier     = "${var.org}/${var.git_repo}"
     oauth_token_id = "${var.oauth_token}"
   }
 }
