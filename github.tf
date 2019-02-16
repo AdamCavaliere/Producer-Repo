@@ -1,5 +1,6 @@
 variable "git_token" {}
 variable "git_repo" {}
+variable "git_user" {}
 
 data "template_file" "init" {
   template = "${file("curl.tmpl")}"
