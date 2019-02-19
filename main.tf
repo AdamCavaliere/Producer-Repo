@@ -13,29 +13,29 @@ resource "tfe_team" "ops" {
   organization = "${var.org}"
 }
 
-resource "tfe_team_member" "azc-dev" {
+resource "tfe_team_member" "dev-user" {
   team_id  = "${tfe_team.developers.id}"
-  username = "azc-dev"
+  username = "dev-user"
 }
 
-resource "tfe_team_member" "azc-ops" {
+resource "tfe_team_member" "ops-user" {
   team_id  = "${tfe_team.ops.id}"
-  username = "azc-ops"
+  username = "ops-user"
 }
 
-resource "tfe_team_access" "development" {
+resource "tfe_team_access" "development-dev" {
   access       = "admin"
   team_id      = "${tfe_team.developers.id}"
   workspace_id = "${tfe_workspace.development.id}"
 }
 
-resource "tfe_team_access" "staging" {
+resource "tfe_team_access" "staging-dev" {
   access       = "write"
   team_id      = "${tfe_team.developers.id}"
   workspace_id = "${tfe_workspace.staging.id}"
 }
 
-resource "tfe_team_access" "production" {
+resource "tfe_team_access" "production-dev" {
   access       = "read"
   team_id      = "${tfe_team.developers.id}"
   workspace_id = "${tfe_workspace.production.id}"
@@ -45,6 +45,18 @@ resource "tfe_team_access" "production-ops" {
   access       = "admin"
   team_id      = "${tfe_team.ops.id}"
   workspace_id = "${tfe_workspace.production.id}"
+}
+
+resource "tfe_team_access" "staging-ops" {
+  access       = "admin"
+  team_id      = "${tfe_team.ops.id}"
+  workspace_id = "${tfe_workspace.staging.id}"
+}
+
+resource "tfe_team_access" "development-ops" {
+  access       = "admin"
+  team_id      = "${tfe_team.ops.id}"
+  workspace_id = "${tfe_workspace.development.id}"
 }
 
 resource "tfe_workspace" "development" {
@@ -76,6 +88,7 @@ resource "tfe_workspace" "production" {
   organization = "${var.org}"
 
   vcs_repo = {
+    branch         = "master"
     identifier     = "${var.vcs_identifier}"
     oauth_token_id = "${var.oauth_token}"
   }

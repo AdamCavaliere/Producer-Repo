@@ -1,5 +1,5 @@
 variable "token" {
-  description = "TFE Org Token"
+  description = "TFE User Token"
 }
 
 variable "aws_region" {
