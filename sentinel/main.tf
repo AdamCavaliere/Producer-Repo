@@ -17,6 +17,14 @@ variable "tfe_organization" {
   default     = "example_corp"
 }
 
+variable "self_name" {
+  default = "sentinel_policies"
+}
+
+variable "use_case_name" {
+  default = "ExampleTeam"
+}
+
 provider "tfe" {
   hostname = "${var.tfe_hostname}"
   token    = "${var.tfe_token}"
@@ -56,7 +64,7 @@ resource "tfe_policy_set" "production" {
   ]
 
   workspace_external_ids = [
-    "${local.workspaces["ProfitApp-production"]}",
+    "${local.workspaces["${var.use_case_name}-production"]}",
   ]
 }
 
@@ -71,7 +79,7 @@ resource "tfe_policy_set" "development" {
   ]
 
   workspace_external_ids = [
-    "${local.workspaces["ProfitApp-development"]}",
+    "${local.workspaces["${var.use_case_name}-development"]}",
   ]
 }
 
@@ -85,7 +93,7 @@ resource "tfe_policy_set" "staging" {
   ]
 
   workspace_external_ids = [
-    "${local.workspaces["ProfitApp-staging"]}",
+    "${local.workspaces["${var.use_case_name}-staging"]}",
   ]
 }
 
@@ -99,7 +107,7 @@ resource "tfe_policy_set" "sentinel" {
   ]
 
   workspace_external_ids = [
-    "${local.workspaces["sentinel_policies"]}",
+    "${local.workspaces["${var.self_name}"]}",
   ]
 }
 
