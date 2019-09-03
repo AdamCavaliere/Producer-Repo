@@ -254,3 +254,24 @@ resource "tfe_variable" "environment_name_prod" {
 
   workspace_id = "${tfe_workspace.production.id}"
 }
+
+resource "tfe_variable" "name_dev" {
+  key      = "name"
+  value    = "${use_case_name}-dev"
+  category = "terraform"
+  workspace_id = "${tfe_workspace.development.id}"
+}
+
+resource "tfe_variable" "name_staging" {
+  key      = "name"
+  value    = "${use_case_name}-stage"
+  category = "terraform"
+  workspace_id = "${tfe_workspace.staging.id}"
+}
+
+resource "tfe_variable" "name_prod" {
+  key      = "name"
+  value    = "${use_case_name}-prod"
+  category = "terraform"
+  workspace_id = "${tfe_workspace.production.id}"
+}
