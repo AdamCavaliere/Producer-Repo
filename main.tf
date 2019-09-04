@@ -66,7 +66,7 @@ resource "tfe_workspace" "development" {
   queue_all_runs = false
   terraform_version = "0.12.7"
 
-  vcs_repo = {
+  vcs_repo {
     branch         = "development"
     identifier     = "${var.vcs_identifier}"
     oauth_token_id = "${var.oauth_token}"
@@ -91,7 +91,7 @@ resource "tfe_workspace" "production" {
   organization = "${var.org}"
   terraform_version = "0.12.7"
 
-  vcs_repo = {
+  vcs_repo {
     branch         = "master"
     identifier     = "${var.vcs_identifier}"
     oauth_token_id = "${var.oauth_token}"
