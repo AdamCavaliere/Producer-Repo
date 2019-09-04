@@ -79,7 +79,7 @@ resource "tfe_workspace" "staging" {
   auto_apply   = true
   terraform_version = "0.12.7"
 
-  vcs_repo = {
+  vcs_repo {
     branch         = "staging"
     identifier     = "${var.vcs_identifier}"
     oauth_token_id = "${var.oauth_token}"
