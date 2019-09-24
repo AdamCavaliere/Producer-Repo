@@ -64,9 +64,9 @@ resource "tfe_workspace" "development" {
   organization = "${var.org}"
   auto_apply   = true
   queue_all_runs = false
-  terraform_version = "0.11.14"
+  terraform_version = "0.12.7"
 
-  vcs_repo = {
+  vcs_repo {
     branch         = "development"
     identifier     = "${var.vcs_identifier}"
     oauth_token_id = "${var.oauth_token}"
@@ -77,9 +77,9 @@ resource "tfe_workspace" "staging" {
   name         = "${var.use_case_name}-staging"
   organization = "${var.org}"
   auto_apply   = true
-  terraform_version = "0.11.14"
+  terraform_version = "0.12.7"
 
-  vcs_repo = {
+  vcs_repo {
     branch         = "staging"
     identifier     = "${var.vcs_identifier}"
     oauth_token_id = "${var.oauth_token}"
@@ -89,9 +89,9 @@ resource "tfe_workspace" "staging" {
 resource "tfe_workspace" "production" {
   name         = "${var.use_case_name}-production"
   organization = "${var.org}"
-  terraform_version = "0.11.14"
+  terraform_version = "0.12.7"
 
-  vcs_repo = {
+  vcs_repo {
     branch         = "master"
     identifier     = "${var.vcs_identifier}"
     oauth_token_id = "${var.oauth_token}"
@@ -252,5 +252,26 @@ resource "tfe_variable" "environment_name_prod" {
   value    = "prod"
   category = "terraform"
 
+  workspace_id = "${tfe_workspace.production.id}"
+}
+
+resource "tfe_variable" "name_dev" {
+  key      = "name"
+  value    = "${var.use_case_name}"
+  category = "terraform"
+  workspace_id = "${tfe_workspace.development.id}"
+}
+
+resource "tfe_variable" "name_staging" {
+  key      = "name"
+  value    = "${var.use_case_name}"
+  category = "terraform"
+  workspace_id = "${tfe_workspace.staging.id}"
+}
+
+resource "tfe_variable" "name_prod" {
+  key      = "name"
+  value    = "${var.use_case_name}"
+  category = "terraform"
   workspace_id = "${tfe_workspace.production.id}"
 }
