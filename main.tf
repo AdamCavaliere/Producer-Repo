@@ -5,7 +5,7 @@ provider "tfe" {
 
 
 resource "tfe_organization_membership" "developers" {
-  organization = "azc"
+  organization = "${var.org}"
   email = "adam+developer@hashicorp.com"
 }
 
@@ -14,12 +14,27 @@ resource "tfe_team_organization_member" "developer" {
   organization_membership_id = "${tfe_organization_membership.developers.id}"
 }
 
-
-
 resource "tfe_team" "developers" {
   name         = "${var.use_case_name}-developers"
   organization = "${var.org}"
 }
+
+resource "tfe_organization_membership" "ops" {
+  organization = "${var.org}"
+  email = "adam+operator@hashicorp.com"
+}
+
+resource "tfe_team_organization_member" "operator" {
+  team_id = "${tfe_team.ops.id}"
+  organization_membership_id = "${tfe_organization_membership.ops.id}"
+}
+
+resource "tfe_team" "ops" {
+  name         = "${var.use_case_name}-ops"
+  organization = "${var.org}"
+}
+
+
 
 resource "tfe_team_access" "development-dev" {
   access       = "admin"
@@ -39,23 +54,23 @@ resource "tfe_team_access" "production-dev" {
   workspace_id = "${tfe_workspace.production.id}"
 }
 
-#resource "tfe_team_access" "production-ops" {
-#  access       = "admin"
-#  team_id      = "${tfe_team.ops.id}"
-#  workspace_id = "${tfe_workspace.production.id}"
-#}
+resource "tfe_team_access" "production-ops" {
+  access       = "admin"
+  team_id      = "${tfe_team.ops.id}"
+  workspace_id = "${tfe_workspace.production.id}"
+}
 
-#resource "tfe_team_access" "staging-ops" {
-#  access       = "admin"
-#  team_id      = "${tfe_team.ops.id}"
-#  workspace_id = "${tfe_workspace.staging.id}"
-#}
+resource "tfe_team_access" "staging-ops" {
+  access       = "admin"
+  team_id      = "${tfe_team.ops.id}"
+  workspace_id = "${tfe_workspace.staging.id}"
+}
 
-#resource "tfe_team_access" "development-ops" {
-#  access       = "admin"
-#  team_id      = "${tfe_team.ops.id}"
-#  workspace_id = "${tfe_workspace.development.id}"
-#}
+resource "tfe_team_access" "development-ops" {
+  access       = "admin"
+  team_id      = "${tfe_team.ops.id}"
+  workspace_id = "${tfe_workspace.development.id}"
+}
 
 resource "tfe_workspace" "development" {
   name         = "${var.use_case_name}-development"
