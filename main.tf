@@ -3,24 +3,22 @@ provider "tfe" {
   token    = "${var.token}"
 }
 
+
+resource "tfe_organization_membership" "developers" {
+  organization = "azc"
+  email = "adam+developer@hashicorp.com"
+}
+
+resource "tfe_team_organization_member" "developer" {
+  team_id = "${tfe_team.developers.id}"
+  organization_membership_id = "${tfe_organization_membership.developers.id}"
+}
+
+
+
 resource "tfe_team" "developers" {
   name         = "${var.use_case_name}-developers"
   organization = "${var.org}"
-}
-
-resource "tfe_team" "ops" {
-  name         = "${var.use_case_name}-production"
-  organization = "${var.org}"
-}
-
-resource "tfe_team_member" "dev-user" {
-  team_id  = "${tfe_team.developers.id}"
-  username = "dev-user"
-}
-
-resource "tfe_team_member" "ops-user" {
-  team_id  = "${tfe_team.ops.id}"
-  username = "ops-user"
 }
 
 resource "tfe_team_access" "development-dev" {
