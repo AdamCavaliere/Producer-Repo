@@ -39,23 +39,23 @@ resource "tfe_team_access" "production-dev" {
   workspace_id = "${tfe_workspace.production.id}"
 }
 
-resource "tfe_team_access" "production-ops" {
-  access       = "admin"
-  team_id      = "${tfe_team.ops.id}"
-  workspace_id = "${tfe_workspace.production.id}"
-}
+#resource "tfe_team_access" "production-ops" {
+#  access       = "admin"
+#  team_id      = "${tfe_team.ops.id}"
+#  workspace_id = "${tfe_workspace.production.id}"
+#}
 
-resource "tfe_team_access" "staging-ops" {
-  access       = "admin"
-  team_id      = "${tfe_team.ops.id}"
-  workspace_id = "${tfe_workspace.staging.id}"
-}
+#resource "tfe_team_access" "staging-ops" {
+#  access       = "admin"
+#  team_id      = "${tfe_team.ops.id}"
+#  workspace_id = "${tfe_workspace.staging.id}"
+#}
 
-resource "tfe_team_access" "development-ops" {
-  access       = "admin"
-  team_id      = "${tfe_team.ops.id}"
-  workspace_id = "${tfe_workspace.development.id}"
-}
+#resource "tfe_team_access" "development-ops" {
+#  access       = "admin"
+#  team_id      = "${tfe_team.ops.id}"
+#  workspace_id = "${tfe_workspace.development.id}"
+#}
 
 resource "tfe_workspace" "development" {
   name         = "${var.use_case_name}-development"
