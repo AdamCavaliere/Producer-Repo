@@ -29,10 +29,10 @@ resource "tfe_team_access" "development-dev" {
   workspace_id = "${tfe_workspace.development.id}"
 }
 
-resource "tfe_team_access" "staging-dev" {
+resource "tfe_team_access" "stage-dev" {
   access       = "write"
   team_id      = "${tfe_team.developers.id}"
-  workspace_id = "${tfe_workspace.staging.id}"
+  workspace_id = "${tfe_workspace.stage.id}"
 }
 
 resource "tfe_team_access" "production-dev" {
@@ -47,10 +47,10 @@ resource "tfe_team_access" "production-ops" {
   workspace_id = "${tfe_workspace.production.id}"
 }
 
-resource "tfe_team_access" "staging-ops" {
+resource "tfe_team_access" "stage-ops" {
   access       = "admin"
   team_id      = "${tfe_team.ops.id}"
-  workspace_id = "${tfe_workspace.staging.id}"
+  workspace_id = "${tfe_workspace.stage.id}"
 }
 
 resource "tfe_team_access" "development-ops" {
@@ -73,14 +73,14 @@ resource "tfe_workspace" "development" {
   }
 }
 
-resource "tfe_workspace" "staging" {
-  name         = "${var.use_case_name}-staging"
+resource "tfe_workspace" "stage" {
+  name         = "${var.use_case_name}-stage"
   organization = var.org
   auto_apply   = true
   terraform_version = "1.3.5"
 
   vcs_repo {
-    branch         = "staging"
+    branch         = "stage"
     identifier     = var.vcs_identifier
     oauth_token_id = var.oauth_token
   }
@@ -92,7 +92,7 @@ resource "tfe_workspace" "production" {
   terraform_version = "1.3.5"
 
   vcs_repo {
-    branch         = "master"
+    branch         = "main"
     identifier     = var.vcs_identifier
     oauth_token_id = var.oauth_token
   }
@@ -102,7 +102,7 @@ resource "tfe_variable" "staging_aws_access_key" {
   key          = "AWS_ACCESS_KEY_ID"
   value        = var.aws_access_key
   category     = "env"
-  workspace_id = "${tfe_workspace.staging.id}"
+  workspace_id = "${tfe_workspace.stage.id}"
 }
 
 resource "tfe_variable" "development_aws_access_key" {
@@ -124,7 +124,7 @@ resource "tfe_variable" "staging_aws_secret_key" {
   value        = "${var.aws_secret_key}"
   category     = "env"
   sensitive    = "true"
-  workspace_id = "${tfe_workspace.staging.id}"
+  workspace_id = "${tfe_workspace.stage.id}"
 }
 
 resource "tfe_variable" "development_aws_secret_key" {
@@ -148,7 +148,7 @@ resource "tfe_variable" "workspace_var_staging" {
   value    = "${var.creator_workspace}"
   category = "terraform"
 
-  workspace_id = "${tfe_workspace.staging.id}"
+  workspace_id = "${tfe_workspace.stage.id}"
 }
 
 resource "tfe_variable" "workspace_var_development" {
@@ -185,7 +185,7 @@ resource "tfe_variable" "confirm_destroy2" {
   key          = "CONFIRM_DESTROY"
   value        = "1"
   category     = "env"
-  workspace_id = "${tfe_workspace.staging.id}"
+  workspace_id = "${tfe_workspace.stage.id}"
 }
 
 resource "tfe_variable" "confirm_destroy3" {
@@ -206,7 +206,7 @@ resource "tfe_variable" "set_ttl2" {
   key          = "WORKSPACE_TTL"
   value        = "30"
   category     = "env"
-  workspace_id = "${tfe_workspace.staging.id}"
+  workspace_id = "${tfe_workspace.stage.id}"
 }
 
 resource "tfe_variable" "set_ttl3" {
@@ -228,7 +228,7 @@ resource "tfe_variable" "org_var_staging" {
   value    = var.org
   category = "terraform"
 
-  workspace_id = "${tfe_workspace.staging.id}"
+  workspace_id = "${tfe_workspace.stage.id}"
 }
 
 resource "tfe_variable" "environment_name_dev" {
@@ -244,7 +244,7 @@ resource "tfe_variable" "environment_name_stage" {
   value    = "stage"
   category = "terraform"
 
-  workspace_id = "${tfe_workspace.staging.id}"
+  workspace_id = "${tfe_workspace.stage.id}"
 }
 
 resource "tfe_variable" "environment_name_prod" {
@@ -262,11 +262,11 @@ resource "tfe_variable" "name_dev" {
   workspace_id = "${tfe_workspace.development.id}"
 }
 
-resource "tfe_variable" "name_staging" {
+resource "tfe_variable" "name_stage" {
   key      = "name"
   value    = var.use_case_name
   category = "terraform"
-  workspace_id = "${tfe_workspace.staging.id}"
+  workspace_id = "${tfe_workspace.stage.id}"
 }
 
 resource "tfe_variable" "name_prod" {
