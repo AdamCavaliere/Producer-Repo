@@ -1,16 +1,16 @@
 provider "tfe" {
-  hostname = "${var.hostname}"
-  token    = "${var.token}"
+  hostname = var.hostname
+  token    = var.token
 }
 
 resource "tfe_team" "developers" {
   name         = "${var.use_case_name}-developers"
-  organization = "${var.org}"
+  organization = var.org
 }
 
 resource "tfe_team" "ops" {
   name         = "${var.use_case_name}-production"
-  organization = "${var.org}"
+  organization = var.org
 }
 
 resource "tfe_team_member" "dev-user" {
@@ -61,53 +61,53 @@ resource "tfe_team_access" "development-ops" {
 
 resource "tfe_workspace" "development" {
   name         = "${var.use_case_name}-development"
-  organization = "${var.org}"
+  organization = var.org
   auto_apply   = true
   queue_all_runs = false
-  terraform_version = "0.12.9"
+  terraform_version = "1.3.5"
 
   vcs_repo {
     branch         = "development"
-    identifier     = "${var.vcs_identifier}"
-    oauth_token_id = "${var.oauth_token}"
+    identifier     = var.vcs_identifier
+    oauth_token_id = var.oauth_token
   }
 }
 
 resource "tfe_workspace" "staging" {
   name         = "${var.use_case_name}-staging"
-  organization = "${var.org}"
+  organization = var.org
   auto_apply   = true
-  terraform_version = "0.12.9"
+  terraform_version = "1.3.5"
 
   vcs_repo {
     branch         = "staging"
-    identifier     = "${var.vcs_identifier}"
-    oauth_token_id = "${var.oauth_token}"
+    identifier     = var.vcs_identifier
+    oauth_token_id = var.oauth_token
   }
 }
 
 resource "tfe_workspace" "production" {
   name         = "${var.use_case_name}-production"
-  organization = "${var.org}"
-  terraform_version = "0.12.9"
+  organization = var.org
+  terraform_version = "1.3.5"
 
   vcs_repo {
     branch         = "master"
-    identifier     = "${var.vcs_identifier}"
-    oauth_token_id = "${var.oauth_token}"
+    identifier     = var.vcs_identifier
+    oauth_token_id = var.oauth_token
   }
 }
 
 resource "tfe_variable" "staging_aws_access_key" {
   key          = "AWS_ACCESS_KEY_ID"
-  value        = "${var.aws_access_key}"
+  value        = var.aws_access_key
   category     = "env"
   workspace_id = "${tfe_workspace.staging.id}"
 }
 
 resource "tfe_variable" "development_aws_access_key" {
   key          = "AWS_ACCESS_KEY_ID"
-  value        = "${var.aws_access_key}"
+  value        = var.aws_access_key
   category     = "env"
   workspace_id = "${tfe_workspace.development.id}"
 }
@@ -225,7 +225,7 @@ resource "tfe_variable" "org_var_development" {
 
 resource "tfe_variable" "org_var_staging" {
   key      = "org"
-  value    = "${var.org}"
+  value    = var.org
   category = "terraform"
 
   workspace_id = "${tfe_workspace.staging.id}"
@@ -257,21 +257,21 @@ resource "tfe_variable" "environment_name_prod" {
 
 resource "tfe_variable" "name_dev" {
   key      = "name"
-  value    = "${var.use_case_name}"
+  value    = var.use_case_name
   category = "terraform"
   workspace_id = "${tfe_workspace.development.id}"
 }
 
 resource "tfe_variable" "name_staging" {
   key      = "name"
-  value    = "${var.use_case_name}"
+  value    = var.use_case_name
   category = "terraform"
   workspace_id = "${tfe_workspace.staging.id}"
 }
 
 resource "tfe_variable" "name_prod" {
   key      = "name"
-  value    = "${var.use_case_name}"
+  value    = var.use_case_name
   category = "terraform"
   workspace_id = "${tfe_workspace.production.id}"
 }
