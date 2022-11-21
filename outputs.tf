@@ -11,7 +11,7 @@ output "development_subnet_id" {
 }
 
 output "staging_subnet_id" {
-  value = "${aws_subnet.staging.id}"
+  value = "${aws_subnet.stage.id}"
 }
 
 output "production_subnet_id" {

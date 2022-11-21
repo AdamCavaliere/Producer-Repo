@@ -17,12 +17,12 @@ resource "aws_subnet" "development" {
   }
 }
 
-resource "aws_subnet" "staging" {
+resource "aws_subnet" "stage" {
   vpc_id     = aws_vpc.main.id
   cidr_block = "10.0.2.0/24"
 
   tags = {
-    Name = "staging"
+    Name = "stage"
   }
 }
 
